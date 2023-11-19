@@ -11,23 +11,21 @@
                     <form>
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Name...">
+                            <input v-model="editable.name" type="text" class="form-control" id="name" placeholder="Name...">
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <div>
-                                <textarea name="description" id="" cols="100" rows="4"
+                                <textarea v-model="editable.description" name="description" id="" cols="100" rows="4"
                                     placeholder="Description..."></textarea>
                             </div>
                         </div>
+                        <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn button-color text-white">Create</button>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-                    <!-- <router-link to="ProjectsPage"> -->
-                    <button type="submit" class="btn button-color text-white">Create</button>
-                    <!-- </router-link> -->
-                </div>
+
+
             </div>
         </div>
     </div>
@@ -35,9 +33,35 @@
 
 
 <script>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { projectsService } from '../services/ProjectService';
+import { Modal } from 'bootstrap';
+import { Project } from '../models/Project';
+import Pop from '../utils/Pop';
+
+
 export default {
     setup() {
-        return {}
+        const editable = ref({})
+        const router = useRouter()
+        return {
+            editable,
+
+            async createProject() {
+                try {
+                    const projectData = editable.value
+                    const project = await projectsService.createProject(projectData)
+                    Modal.getOrCreateInstance('#createProject').hide()
+                    editable.value = {}
+                    router.push({ name: 'Project', params: { projectId: project.id } })
+
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
+
+        }
     }
 };
 </script>

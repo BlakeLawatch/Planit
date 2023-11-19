@@ -9,7 +9,12 @@ class ProjectsService{
     async getProjects(){
         const res = await api.get(`api/projects`)
         AppState.projects = res.data.map(pojo => new Project(pojo))
-        logger.log('got projects FINISH IN THE SERVICE', AppState.Projects)
+    }
+    
+    async createProject(projectData){
+        const res = await api.post(`api/projects`, projectData)
+        logger.log('created projects FINISH IN THE SERVICE', res.data)
+        
     }
 }
 

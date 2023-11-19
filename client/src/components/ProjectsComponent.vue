@@ -1,13 +1,13 @@
 <template>
-    <router-link :to="{ name: 'Project', params: { projectId: project.id } }">
-        <div class="col-4">
+    <div class="col-12 col-md-4">
+        <router-link :to="{ name: 'Project', params: { projectId: project.id } }">
             {{ project.name }}
-        </div>
-    </router-link>
-    <div class="col-4">
+        </router-link>
+    </div>
+    <div class="col-12 col-md-4">
         <img class="rounded-circle" :src="project.creator.picture" alt="">
     </div>
-    <div class="col-4">
+    <div class="col-12 col-md-4">
         {{ project.createdAt.toLocaleDateString() }}
     </div>
 </template>
