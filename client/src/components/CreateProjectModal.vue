@@ -24,7 +24,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                    <!-- <router-link to="ProjectsPage"> -->
                     <button type="submit" class="btn button-color text-white">Create</button>
+                    <!-- </router-link> -->
                 </div>
             </div>
         </div>

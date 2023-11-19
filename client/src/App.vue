@@ -38,4 +38,8 @@ footer {
 .main-color {
   color: #a729c4;
 }
+
+.secondary-color {
+  color: #f048ae;
+}
 </style>
