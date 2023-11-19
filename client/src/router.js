@@ -24,7 +24,7 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-    path: '/projects',
+    path: '/projects/:projectId',
     name: 'Project',
     component: loadPage('ProjectPage'),
     beforeEnter: authGuard

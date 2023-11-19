@@ -1,7 +1,9 @@
 <template>
-    <div class="col-4">
-        {{ project.name }}
-    </div>
+    <router-link :to="{ name: 'Project', params: { projectId: project.id } }">
+        <div class="col-4">
+            {{ project.name }}
+        </div>
+    </router-link>
     <div class="col-4">
         <img class="rounded-circle" :src="project.creator.picture" alt="">
     </div>
