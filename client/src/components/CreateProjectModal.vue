@@ -8,7 +8,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form @submit.prevent="createProject()">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input v-model="editable.name" type="text" class="form-control" id="name" placeholder="Name...">
@@ -16,7 +16,7 @@
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <div>
-                                <textarea v-model="editable.description" name="description" id="" cols="100" rows="4"
+                                <textarea v-model="editable.description" name="description" id="" cols="50" rows="4"
                                     placeholder="Description..."></textarea>
                             </div>
                         </div>
@@ -37,7 +37,6 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { projectsService } from '../services/ProjectService';
 import { Modal } from 'bootstrap';
-import { Project } from '../models/Project';
 import Pop from '../utils/Pop';
 
 

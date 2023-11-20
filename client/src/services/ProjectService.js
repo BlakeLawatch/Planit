@@ -13,7 +13,10 @@ class ProjectsService{
     
     async createProject(projectData){
         const res = await api.post(`api/projects`, projectData)
-        logger.log('created projects FINISH IN THE SERVICE', res.data)
+        const newProject = new Project(res.data)
+        AppState.projects.push(newProject)
+        return newProject
+       
         
     }
 }
