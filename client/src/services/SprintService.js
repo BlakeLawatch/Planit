@@ -10,7 +10,7 @@ class SprintService{
         const res = await api.post(`api/sprints`, sprintData)
         const newSprint = new Sprint(res.data)
         AppState.sprints.push(newSprint)
-        logger.log('created sprint FINISH IN THE SERVICE', res.data)
+        // logger.log('created sprint FINISH IN THE SERVICE', res.data)
     }
 
     async getSprintsByProjectId(projectId){

@@ -1,6 +1,7 @@
 export class Sprint{
     constructor(data){
         this.id = data.id
+        this.name = data.name
         this.projectId = data.projectId
         this.creatorId = data.creatorId
         this.isOpen = data.isOpen
