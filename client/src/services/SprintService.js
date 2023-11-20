@@ -12,6 +12,12 @@ class SprintService{
         AppState.sprints.push(newSprint)
         logger.log('created sprint FINISH IN THE SERVICE', res.data)
     }
+
+    async getSprintsByProjectId(projectId){
+        const res = await api.get(`api/projects/${projectId}/sprints`)
+        AppState.sprints = res.data.map(pojo => new Sprint(pojo))
+        logger.log('got sprints FINISH IN THE SERVICE', AppState.sprints)
+    }
 }
 
 export const sprintService = new SprintService()

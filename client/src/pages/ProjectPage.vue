@@ -25,7 +25,11 @@
                         Sprint</button>
                     <SprintModal />
                 </div>
-
+            </section>
+            <section class="row justify-content-center">
+                <div class="col-8 sprint-card">
+                    {{ sprints }}
+                </div>
             </section>
         </section>
     </div>
@@ -40,6 +44,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { projectsService } from '../services/ProjectService';
 import Pop from '../utils/Pop';
 import SprintModal from '../components/SprintModal.vue';
+import { sprintService } from '../services/SprintService';
 
 
 
@@ -48,6 +53,7 @@ export default {
     setup() {
         onMounted(() => {
             getProjectById();
+            getSprintsByProjectId()
         });
         const route = useRoute();
         const router = useRouter();
@@ -60,11 +66,22 @@ export default {
                 Pop.error(error);
             }
         }
+
+        async function getSprintsByProjectId() {
+            try {
+                const projectId = route.params.projectId
+                await sprintService.getSprintsByProjectId(projectId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
+
         return {
             route,
             router,
             activeProject: computed(() => AppState.activeProject),
             account: computed(() => AppState.account),
+            sprints: computed(() => AppState.sprints),
             async destroyProject() {
                 try {
                     const wantToDelete = await Pop.confirm('You sure about that?');
@@ -90,5 +107,9 @@ export default {
 <style lang="scss" scoped>
 .button-color {
     background-color: #a729c4;
+}
+
+.sprint-card {
+    border: .1rem solid #a729c4;
 }
 </style>
