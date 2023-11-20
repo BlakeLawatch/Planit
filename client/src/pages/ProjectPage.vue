@@ -14,6 +14,19 @@
                     <p>{{ activeProject.description }}</p>
                 </div>
             </div>
+            <section class="row">
+                <div class="col-2"></div>
+                <div class="col-5">
+                    <h3 class="main-color">Sprints</h3>
+                    <p>Group your tasks into sprints for over-arching collections for better organization</p>
+                </div>
+                <div class="col-5 text-center">
+                    <button class="btn button-color text-light" data-bs-toggle="modal" data-bs-target="#sprintModal">Add
+                        Sprint</button>
+                    <SprintModal />
+                </div>
+
+            </section>
         </section>
     </div>
 </template>
@@ -26,6 +39,7 @@ import { AppState } from '../AppState';
 import { useRoute, useRouter } from 'vue-router';
 import { projectsService } from '../services/ProjectService';
 import Pop from '../utils/Pop';
+import SprintModal from '../components/SprintModal.vue';
 
 
 
@@ -33,45 +47,48 @@ import Pop from '../utils/Pop';
 export default {
     setup() {
         onMounted(() => {
-            getProjectById()
-        })
-        const route = useRoute()
-        const router = useRouter()
-
+            getProjectById();
+        });
+        const route = useRoute();
+        const router = useRouter();
         async function getProjectById() {
             try {
-                const projectId = route.params.projectId
-                await projectsService.getProjectById(projectId)
-
-            } catch (error) {
-                Pop.error(error)
+                const projectId = route.params.projectId;
+                await projectsService.getProjectById(projectId);
+            }
+            catch (error) {
+                Pop.error(error);
             }
         }
-
         return {
             route,
             router,
             activeProject: computed(() => AppState.activeProject),
             account: computed(() => AppState.account),
-
             async destroyProject() {
                 try {
-                    const wantToDelete = await Pop.confirm('You sure about that?')
+                    const wantToDelete = await Pop.confirm('You sure about that?');
                     if (!wantToDelete) {
-                        return
+                        return;
                     }
-                    const projectId = route.params.projectId
-                    await projectsService.destroyProject(projectId)
-                    Pop.success('Project deleted')
-                    router.push({ name: 'Home' })
-                } catch (error) {
-                    Pop.error(error)
+                    const projectId = route.params.projectId;
+                    await projectsService.destroyProject(projectId);
+                    Pop.success('Project deleted');
+                    router.push({ name: 'Home' });
+                }
+                catch (error) {
+                    Pop.error(error);
                 }
             }
         };
     },
+    components: { SprintModal }
 };
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button-color {
+    background-color: #a729c4;
+}
+</style>

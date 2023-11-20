@@ -73,6 +73,5 @@ export default {
 
 .button-color {
     background-color: #a729c4;
-    ;
 }
 </style>
