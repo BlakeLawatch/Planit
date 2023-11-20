@@ -16,7 +16,22 @@ class ProjectsService{
         const newProject = new Project(res.data)
         AppState.projects.push(newProject)
         return newProject
-       
+    }
+
+    async getProjectById(projectId){
+        const res = await api.get(`api/projects/${projectId}`)
+        const currentProject = new Project(res.data)
+        AppState.activeProject = currentProject
+    }
+    
+    async destroyProject(projectId){
+        const res = await api.delete(`api/projects/${projectId}`)
+        AppState.activeProject = null
+        const projectIndex = AppState.projects.findIndex(project => project.id == projectId)
+        if (projectIndex == -1)
+        {throw new Error('No project found')}
+        AppState.projects.splice(projectIndex, 1)
+        logger.log('deleted project, FINISH IN THE SERVICE', res.data)
         
     }
 }
