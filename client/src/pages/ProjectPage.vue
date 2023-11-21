@@ -30,6 +30,11 @@
                 <div class="col-8">
                     <div class="sprint-card my-2" v-for="sprint in sprints" :key="sprint.id">
                         <SprintComponent :sprint="sprint" />
+                        <div class="d-flex secondary-color justify-content-end fs-5 bg-light">
+                            <p class="mb-0">Delete Sprint {{ sprint.name }}
+                                <button class="p-4 btn secondary-color fs-5"><i class="mdi mdi-delete-empty"></i></button>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>

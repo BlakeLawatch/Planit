@@ -19,5 +19,8 @@ export const AppState = reactive({
   activeSprint: null,
   
   /** @type {import('./models/Task.js').Task[]} */
-  tasks: []
+  tasks: [],
+  
+  /** @type {import('./models/Task.js').Task | null} */
+  activeTask: null
 })

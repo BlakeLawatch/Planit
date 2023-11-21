@@ -26,6 +26,10 @@ class TasksService{
         logger.log('deleted task FINISH IN THE SERVICE', AppState.tasks)
         
     }
+
+    setActiveTask(task){
+        AppState.activeTask = task
+    }
 }
 
 export const tasksService = new TasksService()

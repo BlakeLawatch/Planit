@@ -49,6 +49,7 @@ import { useRoute } from 'vue-router';
 
 
 
+
 export default {
     setup() {
         const editable = ref({})
@@ -74,6 +75,7 @@ export default {
                     Pop.error(error)
                 }
             }
+
         }
     }
 };
