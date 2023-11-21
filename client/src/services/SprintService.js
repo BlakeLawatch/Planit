@@ -18,6 +18,10 @@ class SprintService{
         AppState.sprints = res.data.map(pojo => new Sprint(pojo))
         logger.log('got sprints FINISH IN THE SERVICE', AppState.sprints)
     }
+
+    setActiveSprint(sprint){
+        AppState.activeSprint = sprint
+    }
 }
 
 export const sprintService = new SprintService()

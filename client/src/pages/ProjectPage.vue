@@ -29,22 +29,7 @@
             <section class="row justify-content-center">
                 <div class="col-8">
                     <div class="sprint-card my-2" v-for="sprint in sprints" :key="sprint.id">
-                        <div class="col-12 d-flex sprint-card bg-white">
-                            <div class="col-6 fw-bold p-3 d-flex">
-                                <p>S1 - {{ sprint.name }}</p>
-                                <p class="ms-5 secondary-color">10 <i class="mdi mdi-weight"></i></p>
-                            </div>
-                            <div class="col-6 d-flex justify-content-end p-2">
-                                <div class="me-3">
-                                    <button class="btn button-color-2 mt-2 text-light">Add Task +</button>
-                                </div>
-                                <p class="mt-2 fw-bold">1/2 Tasks Complete</p>
-                            </div>
-                        </div>
-                        <div class="col-12 bg-light">
-                            Task component will go here
-                        </div>
-
+                        <SprintComponent :sprint="sprint" />
                     </div>
                 </div>
             </section>
@@ -62,6 +47,7 @@ import { projectsService } from '../services/ProjectService';
 import Pop from '../utils/Pop';
 import SprintModal from '../components/SprintModal.vue';
 import { sprintService } from '../services/SprintService';
+import SprintComponent from '../components/SprintComponent.vue';
 
 
 
@@ -116,7 +102,7 @@ export default {
             }
         };
     },
-    components: { SprintModal }
+    components: { SprintModal, SprintComponent }
 };
 </script>
 
