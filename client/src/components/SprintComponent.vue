@@ -17,10 +17,9 @@
             <p class="mt-2 fw-bold">1/2 Tasks Complete</p>
         </div>
     </div>
-    <div class="col-12 bg-light collapse" id="taskCollapse">
+    <div class=" p-2 col-12 bg-light collapse" id="taskCollapse">
         <div v-for="task in tasks" :key="task.id">
             <TaskExpansionComponent :task="task" />
-
         </div>
     </div>
     <TaskForm />

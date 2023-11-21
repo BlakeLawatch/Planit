@@ -3,7 +3,7 @@ import { Task } from "../models/Task"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
-class TaskService{
+class TasksService{
 
 
     async createTask(taskData){
@@ -17,8 +17,15 @@ class TaskService{
     async getTasksByProjectId(projectId){
         const res = await api.get(`api/projects/${projectId}/tasks`)
         AppState.tasks = res.data.map(pojo => new Task(pojo))
-        logger.log('got tasks FINISH IN THE SERVICE', AppState.tasks)
+    }
+    
+    async destroyTask(taskId){
+        await api.delete(`api/tasks/${taskId}`)
+        const taskIndex = AppState.tasks.findIndex(task => task.id == taskId)
+        AppState.tasks.splice(taskIndex, 1)
+        logger.log('deleted task FINISH IN THE SERVICE', AppState.tasks)
+        
     }
 }
 
-export const tasksService = new TaskService()
+export const tasksService = new TasksService()

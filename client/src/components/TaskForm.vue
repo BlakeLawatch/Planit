@@ -39,7 +39,7 @@
 
 <script>
 import { ref } from 'vue';
-import { tasksService } from '../services/TaskService.js'
+import { tasksService } from '../services/TasksService.js'
 
 import { Modal } from 'bootstrap';
 import { AppState } from '../AppState'
@@ -84,4 +84,4 @@ export default {
 .button-color {
     background-color: #a729c4;
 }
-</style>
+</style>../services/TasksService.js

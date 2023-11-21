@@ -48,7 +48,7 @@ import Pop from '../utils/Pop';
 import SprintModal from '../components/SprintModal.vue';
 import { sprintService } from '../services/SprintService';
 import SprintComponent from '../components/SprintComponent.vue';
-import { tasksService } from '../services/TaskService';
+import { tasksService } from '../services/TasksService';
 
 
 
@@ -131,4 +131,4 @@ export default {
     border: .05rem solid #a729c4;
     box-shadow: 2px 1px 5px gray;
 }
-</style>
+</style>../services/TasksService

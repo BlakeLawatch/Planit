@@ -7,7 +7,7 @@ export class Task{
         this.sprintId = data.sprintId
         this.creatorId = data.creatorId
         this.isComplete = data.isComplete
-        this.createdAt = data.createdAt
+        this.createdAt = new Date(data.createdAt)
         this.updatedAt = data.updatedAt
         this.creator = data.creator
     }
