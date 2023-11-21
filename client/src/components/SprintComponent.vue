@@ -18,28 +18,35 @@
         </div>
     </div>
     <div class="col-12 bg-light collapse" id="taskCollapse">
-        Task component will go here
+        <div v-for="task in tasks" :key="task.id">
+            <TaskExpansionComponent :task="task" />
+
+        </div>
     </div>
     <TaskForm />
 </template>
 
 
 <script>
+import { computed } from 'vue';
 import { Sprint } from '../models/Sprint';
 import { sprintService } from '../services/SprintService';
+import TaskExpansionComponent from './TaskExpansionComponent.vue';
 import TaskForm from './TaskForm.vue';
+import { AppState } from '../AppState';
 
 export default {
     props: { sprint: { type: Sprint, required: true } },
     setup(props) {
         return {
+            tasks: computed(() => AppState.tasks),
 
             setActiveSprint() {
                 sprintService.setActiveSprint(props.sprint)
             }
         };
     },
-    components: { TaskForm }
+    components: { TaskForm, TaskExpansionComponent }
 };
 </script>
 

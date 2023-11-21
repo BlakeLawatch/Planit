@@ -1,15 +1,16 @@
 <template>
-    <div class="component">
-
-
+    <div>
+        {{ task.name }}
     </div>
 </template>
 
 
 <script>
-import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
+import { Task } from '../models/Task';
+
+
 export default {
+    props: { task: { type: Task, required: true } },
     setup() {
         return {}
     }

@@ -48,6 +48,7 @@ import Pop from '../utils/Pop';
 import SprintModal from '../components/SprintModal.vue';
 import { sprintService } from '../services/SprintService';
 import SprintComponent from '../components/SprintComponent.vue';
+import { tasksService } from '../services/TaskService';
 
 
 
@@ -57,6 +58,7 @@ export default {
         onMounted(() => {
             getProjectById();
             getSprintsByProjectId()
+            getTasksByProjectId()
         });
         const route = useRoute();
         const router = useRouter();
@@ -74,6 +76,15 @@ export default {
             try {
                 const projectId = route.params.projectId
                 await sprintService.getSprintsByProjectId(projectId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
+
+        async function getTasksByProjectId() {
+            try {
+                const projectId = route.params.projectId
+                await tasksService.getTasksByProjectId(projectId)
             } catch (error) {
                 Pop.error(error)
             }
