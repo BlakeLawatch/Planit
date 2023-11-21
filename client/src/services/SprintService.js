@@ -19,6 +19,16 @@ class SprintService{
         logger.log('got sprints FINISH IN THE SERVICE', AppState.sprints)
     }
 
+    async destroySprint(sprintId){
+        const res = await api.delete(`api/sprints/${sprintId}`)
+        const sprintIndex = AppState.sprints.findIndex(sprint => sprint.id == sprintId)
+        if (sprintIndex == -1){
+            throw new Error (`No sprint has been found with the ID of ${sprintId}`)
+        }
+        AppState.sprints.splice(sprintIndex, 1)
+        logger.log('deleted sprint FINISH IN THE SERVICE', AppState.sprints)
+    }
+
     setActiveSprint(sprint){
         AppState.activeSprint = sprint
     }
