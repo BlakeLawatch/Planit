@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController.js";
 import { projectsService } from "../services/ProjectsService.js";
 import { dbContext } from "../db/DbContext.js";
 import { sprintsService } from "../services/SprintsService.js";
+import { tasksService } from "../services/TasksService.js";
 
 export class ProjectsController extends BaseController {
     constructor() {
@@ -12,6 +13,7 @@ export class ProjectsController extends BaseController {
             .get(``, this.getProjects)
             .get(`/:projectId`, this.getProjectById)
             .get('/:projectId/sprints', this.getSprints)
+            .get(`/:projectId/tasks`, this.getTasksByProjectId)
             .post(``, this.createProject)
             .delete(`/:projectId`, this.destroyProject)
     }
@@ -38,6 +40,16 @@ export class ProjectsController extends BaseController {
             const projectId = req.params.projectId
             const sprints = await sprintsService.getSprints(projectId)
             return res.send(sprints)
+        } catch (error) {
+            next(error)
+        }
+
+    }
+    async getTasksByProjectId(req, res, next) {
+        try {
+            const projectId = req.params.projectId
+            const tasks = await tasksService.getTasksByProjectId(projectId)
+            return res.send(tasks)
         } catch (error) {
             next(error)
         }

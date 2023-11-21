@@ -39,6 +39,7 @@
                             </div>
                             <p class="mt-2 fw-bold">1/2 Tasks Complete</p>
                         </div>
+
                     </div>
                 </div>
             </section>
