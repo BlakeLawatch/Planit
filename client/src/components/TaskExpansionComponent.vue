@@ -4,13 +4,18 @@
             <div class="fs-4 d-flex">
                 <div v-if="task.isComplete">
                     <i class="mdi mdi-checkbox-multiple-marked-circle"></i>
-                    <button @click="setActiveTask()" class="btn complete-button-color rounded-pill text-light mx-2 py-0">{{
-                        task.name }}</button>
+                    <button @click="setActiveTask()" type="button" data-bs-toggle="offcanvas" data-bs-target="#taskDetails"
+                        aria-controls="offcanvasRight" class="btn complete-button-color rounded-pill text-light mx-2 py-0">
+                        {{ task.name }}
+                    </button>
+                    <TaskDetailsOffcanvas />
                 </div>
                 <div v-else>
                     <i class="mdi mdi-checkbox-multiple-marked-circle-outline"></i>
-                    <button @click="setActiveTask()" class="btn button-color rounded-pill text-light mx-2 py-0">{{ task.name
-                    }}</button>
+                    <button @click="setActiveTask()" type="button" data-bs-toggle="offcanvas" data-bs-target="#taskDetails"
+                        aria-controls="offcanvasRight" class="btn button-color rounded-pill text-light mx-2 py-0">
+                        {{ task.name }}</button>
+                    <TaskDetailsOffcanvas />
                 </div>
                 <button @click="destroyTask()" class="btn gray-color fs-3"><i class="mdi mdi-delete-empty"></i></button>
             </div>
@@ -33,6 +38,7 @@ import { Task } from '../models/Task';
 import Pop from '../utils/Pop';
 import { computed } from 'vue';
 import { AppState } from '../AppState';
+import TaskDetailsOffcanvas from './TaskDetailsOffcanvas.vue';
 
 
 export default {
@@ -40,23 +46,24 @@ export default {
     setup(props) {
         return {
             sprints: computed(() => AppState.sprints),
-
             async destroyTask() {
                 try {
-                    const wantToDelete = await Pop.confirm('You sure about that?')
+                    const wantToDelete = await Pop.confirm('You sure about that?');
                     if (!wantToDelete) {
-                        return
+                        return;
                     }
-                    await tasksService.destroyTask(props.task.id)
-                } catch (error) {
-                    Pop.error(error)
+                    await tasksService.destroyTask(props.task.id);
+                }
+                catch (error) {
+                    Pop.error(error);
                 }
             },
             setActiveTask() {
-                tasksService.setActiveTask(props.task)
+                tasksService.setActiveTask(props.task);
             }
-        }
-    }
+        };
+    },
+    components: { TaskDetailsOffcanvas }
 };
 </script>
 

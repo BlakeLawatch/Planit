@@ -13,7 +13,7 @@
             <div class="me-3 d-flex">
                 <button data-bs @click="setActiveSprint()" data-bs-toggle="modal" data-bs-target="#taskModal" type="button"
                     class="btn button-color-2 mt-2 text-light">Add Task +</button>
-                <p class="secondary-color fw-bold p-3">Delete {{ sprint.name }}
+                <p v-if="sprint.creatorId == account.id" class="secondary-color fw-bold p-3">Delete {{ sprint.name }}
                     <button @click="destroySprint()" class="btn secondary-color"><i
                             class="mdi mdi-delete-empty"></i></button>
                 </p>
@@ -48,6 +48,7 @@ export default {
         const route = useRoute()
         return {
             tasks: computed(() => AppState.tasks),
+            account: computed(() => AppState.account),
             route,
 
             async destroySprint() {

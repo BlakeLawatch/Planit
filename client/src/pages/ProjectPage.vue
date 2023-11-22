@@ -1,5 +1,5 @@
 <template>
-    <div v-if="activeProject" class="container-fluid">
+    <div v-if="activeProject && activeProject.creatorId == account.id" class="container-fluid">
         <section class="row d-flex">
             <div class="col-2">
                 <h3>OFFCANVAS BUTTON</h3>
