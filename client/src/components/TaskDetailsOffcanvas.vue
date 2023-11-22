@@ -25,6 +25,19 @@
                         </div>
                     </form>
                 </div>
+                <div class="col-11">
+                    <div class="full-border p-2 my-2" v-for="note in notes" :key="note">
+                        <div class="d-flex my-1">
+                            <img class="rounded-circle creator-img" :src="note.creator.picture" alt="">
+                            <span class="pt-1 ms-1 main-color fs-6">{{ note.creator.email }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-end">
+                            <p class="fs-6">{{ note.body }}</p>
+                            <button class="btn delete-color"><i class="mdi mdi-delete-empty"></i></button>
+                        </div>
+
+                    </div>
+                </div>
             </section>
         </div>
     </div>
@@ -32,21 +45,37 @@
 
 
 <script>
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Pop from '../utils/Pop';
 import { noteService } from '../services/NoteService'
 import { AppState } from '../AppState';
+import { useRoute } from 'vue-router';
 
 
 
 
 export default {
     setup() {
+        onMounted(() => {
+            getNotesByProjectId()
+        })
         const editable = ref({})
+        const route = useRoute()
+
+        async function getNotesByProjectId() {
+            try {
+                const projectId = route.params.projectId
+                await noteService.getNotesByProjectId(projectId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
 
 
         return {
             editable,
+            route,
+            notes: computed(() => AppState.notes),
 
             async createNote() {
                 try {
@@ -71,6 +100,10 @@ export default {
     border-bottom: .1rem solid gray;
 }
 
+.full-border {
+    border: .1rem solid #f048ae;
+}
+
 .main-color {
     color: #a729c4;
 }
@@ -78,5 +111,16 @@ export default {
 .background-color {
     background-color: #a729c4;
 
+
+}
+
+.delete-color {
+    background-color: #f048ae;
+    max-height: 5vh;
+}
+
+.creator-img {
+    max-height: 5vh;
+    max-width: 5vw;
 }
 </style>

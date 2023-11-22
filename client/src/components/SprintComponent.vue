@@ -3,11 +3,11 @@
         <div class="col-5 fw-bold p-3 d-flex">
             <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#taskCollapse" aria-expanded="false"
                 aria-controls="collapseExample">
-                <i class="mdi mdi-rhombus-outline fs-4"></i>
+                <i v-if="tasks.length > 0" class="mdi mdi-rhombus-outline fs-4"></i>
             </button>
 
             <p class="ps-2"> S1 - {{ sprint.name }}</p>
-            <p class="ms-5 secondary-color">10 <i class="mdi mdi-weight"></i></p>
+            <p class="ms-5 secondary-color"> {{ taskWeight }}<i class="mdi mdi-weight"></i></p>
         </div>
         <div class="col-7 d-flex justify-content-end p-2">
             <div class="me-3 d-flex">
@@ -47,9 +47,15 @@ export default {
     setup(props) {
         const route = useRoute()
         return {
+            route,
             tasks: computed(() => AppState.tasks),
             account: computed(() => AppState.account),
-            route,
+            taskWeight: computed(() => {
+                let total = 0
+                const totalWeight = AppState.tasks.filter(task => task.sprintId == props.sprint.id)
+                totalWeight.forEach(totalWeight => total += totalWeight.weight)
+                return total
+            }),
 
             async destroySprint() {
                 try {

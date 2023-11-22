@@ -21,9 +21,9 @@
             </div>
             <div class="border-left ps-4">
                 <p class="gray-color"><i class="mdi mdi-run"></i> Created - {{ task.createdAt.toLocaleDateString() }}</p>
-                <div class="d-flex justify-content-between py-3 my-2">
-                    <span>5 Notes</span>
-                    <span>{{ task.weight }}<i class="mdi mdi-weight"></i></span>
+                <div class="d-flex  py-3 m-2">
+                    <span class="main-color">{{ notes.length }} <i class="mdi mdi-message-reply-text"></i> </span>
+                    <span class="ms-4">{{ task.weight }}<i class="mdi mdi-weight"></i></span>
                 </div>
             </div>
         </div>
@@ -41,11 +41,13 @@ import { AppState } from '../AppState';
 import TaskDetailsOffcanvas from './TaskDetailsOffcanvas.vue';
 
 
+
 export default {
     props: { task: { type: Task, required: true } },
     setup(props) {
         return {
             sprints: computed(() => AppState.sprints),
+            notes: computed(() => AppState.notes),
             async destroyTask() {
                 try {
                     const wantToDelete = await Pop.confirm('You sure about that?');

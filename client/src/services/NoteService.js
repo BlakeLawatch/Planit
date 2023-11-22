@@ -11,6 +11,12 @@ class NoteService{
         AppState.notes.push(new Note(res.data))
         logger.log('created a note', AppState.notes)
     }
+
+    async getNotesByProjectId(projectId){
+        const res = await api.get(`api/projects/${projectId}/notes`)
+        AppState.notes = res.data.map(pojo => new Note(pojo))
+        logger.log('got notes', AppState.notes)
+    }
 }
 
 export const noteService = new NoteService()
