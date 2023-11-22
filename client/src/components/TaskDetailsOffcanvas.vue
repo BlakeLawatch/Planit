@@ -11,11 +11,12 @@
                 </div>
                 <div class="col-12">
                     <p>Add a Note</p>
-                    <form>
+                    <form @submit.prevent="createNote()">
                         <div class="mb-3 d-flex">
                             <div class="d-flex">
-                                <label for="note" class="form-label"></label>
-                                <textarea name="note" id="" cols="25" rows="2" placeholder="Say Something..."></textarea>
+                                <label for="body" class="form-label"></label>
+                                <textarea v-model="editable.body" name="body" id="" cols="25" rows="2"
+                                    placeholder="Say Something..."></textarea>
                             </div>
                             <div>
                                 <button type="submit" class="btn background-color text-white p-4"><i
@@ -31,13 +32,34 @@
 
 
 <script>
+import { ref } from 'vue';
+import Pop from '../utils/Pop';
+import { noteService } from '../services/NoteService'
+import { AppState } from '../AppState';
+
 
 
 
 export default {
     setup() {
-        return {
+        const editable = ref({})
 
+
+        return {
+            editable,
+
+            async createNote() {
+                try {
+                    const noteData = editable.value
+                    noteData.projectId = AppState.activeProject.id
+                    noteData.taskId = AppState.activeTask.id
+                    await noteService.createNote(noteData)
+                    editable.value = {}
+                } catch (error) {
+                    Pop.error(error)
+                }
+
+            }
         }
     }
 };
