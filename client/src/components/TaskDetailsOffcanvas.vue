@@ -33,7 +33,8 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-end">
                             <p class="fs-6">{{ note.body }}</p>
-                            <button class="btn delete-color"><i class="mdi mdi-delete-empty"></i></button>
+                            <button v-if="note.creatorId == account.id" @click="destroyNote(note.id)"
+                                class="btn delete-color"><i class="mdi mdi-delete-empty"></i></button>
                         </div>
 
                     </div>
@@ -50,7 +51,6 @@ import Pop from '../utils/Pop';
 import { noteService } from '../services/NoteService'
 import { AppState } from '../AppState';
 import { useRoute } from 'vue-router';
-
 
 
 
@@ -76,6 +76,7 @@ export default {
             editable,
             route,
             notes: computed(() => AppState.notes),
+            account: computed(() => AppState.account),
 
             async createNote() {
                 try {
@@ -88,6 +89,19 @@ export default {
                     Pop.error(error)
                 }
 
+            },
+
+            async destroyNote(noteId) {
+                try {
+                    const wantsToDelete = await Pop.confirm('You sure about that?')
+                    if (!wantsToDelete) {
+                        return
+                    }
+                    await noteService.destroyNote(noteId)
+
+                } catch (error) {
+                    Pop.error(error)
+                }
             }
         }
     }

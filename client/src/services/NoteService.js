@@ -17,6 +17,16 @@ class NoteService{
         AppState.notes = res.data.map(pojo => new Note(pojo))
         logger.log('got notes', AppState.notes)
     }
+
+    async destroyNote(noteId){
+        await api.delete(`api/notes/${noteId}`)
+        const notesIndex = AppState.notes.findIndex(note => note.id == noteId)
+        if(notesIndex == -1){
+            throw new Error('No note found');
+        }
+        AppState.notes.splice(notesIndex, 1)
+        // logger.log('deleted note FINISH IN THE SERVICE', res.data)
+    }
 }
 
 export const noteService = new NoteService()
