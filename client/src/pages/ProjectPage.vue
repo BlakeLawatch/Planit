@@ -2,8 +2,17 @@
     <div v-if="activeProject && activeProject.creatorId == account.id" class="container-fluid">
         <section class="row d-flex">
             <div class="col-2">
-                <h3>OFFCANVAS BUTTON</h3>
+
+                <button class="btn button-color fs-1 text-white px-4" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#projectOffcanvas" aria-controls="offcanvasExample">P</button>
+                <ProjectOffcanvas :projectProp="project" />
+                <div class="my-1">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal"
+                        class="btn button-color-3 fs-1 px-3"><i class="mdi mdi-cog main-color"></i></button>
+                    <EditProfileModal />
+                </div>
             </div>
+
             <div class="col-10">
                 <div class="d-flex">
                     <h1 class="mb-0 pt-2">{{ activeProject.name }}</h1>
@@ -50,6 +59,8 @@ import SprintModal from '../components/SprintModal.vue';
 import { sprintService } from '../services/SprintService';
 import SprintComponent from '../components/SprintComponent.vue';
 import { tasksService } from '../services/TasksService';
+import ProjectOffcanvas from '../components/ProjectOffcanvas.vue';
+import EditProfileModal from '../components/EditProfileModal.vue';
 
 
 
@@ -60,6 +71,7 @@ export default {
             getProjectById();
             getSprintsByProjectId()
             getTasksByProjectId()
+
         });
         const route = useRoute();
         const router = useRouter();
@@ -97,6 +109,7 @@ export default {
             activeProject: computed(() => AppState.activeProject),
             account: computed(() => AppState.account),
             sprints: computed(() => AppState.sprints),
+            projects: computed(() => AppState.projects),
             async destroyProject() {
                 try {
                     const wantToDelete = await Pop.confirm('You sure about that?');
@@ -114,7 +127,7 @@ export default {
             }
         };
     },
-    components: { SprintModal, SprintComponent }
+    components: { SprintModal, SprintComponent, ProjectOffcanvas, EditProfileModal }
 };
 </script>
 
@@ -126,6 +139,10 @@ export default {
 
 .button-color-2 {
     background-color: #f048ae;
+}
+
+.button-color-3 {
+    background-color: gray;
 }
 
 .sprint-card {
