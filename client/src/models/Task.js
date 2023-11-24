@@ -6,7 +6,7 @@ export class Task{
         this.projectId = data.projectId
         this.sprintId = data.sprintId
         this.creatorId = data.creatorId
-        this.isComplete = data.isComplete
+        this.isComplete = data.isComplete || false
         this.createdAt = new Date(data.createdAt)
         this.updatedAt = data.updatedAt
         this.creator = data.creator

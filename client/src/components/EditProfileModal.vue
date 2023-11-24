@@ -19,17 +19,20 @@
                         <div class="d-flex justify-content-around">
                             <div class="col-5 mb-3 text-start">
                                 <label for="title" class="form-label ps-2">Title</label>
-                                <input v-model="editable.title" type="text" class="form-control" id="title">
+                                <input v-model="editable.title" type="text" class="form-control" id="title"
+                                    :placeholder="account.title">
                             </div>
                             <div class="col-5 mb-3 text-start">
                                 <label for="name" class="form-label ps-2">Name</label>
-                                <input v-model="editable.name" type="text" class="form-control" id="name" required>
+                                <input v-model="editable.name" type="text" class="form-control" id="name"
+                                    :placeholder="account.name">
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
                             <div class="col-11 mb-3 text-start">
                                 <label for="picture" class="form-label ps-2">Image URL</label>
-                                <input v-model="editable.picture" type="url" class="form-control" id="picture" required>
+                                <input v-model="editable.picture" type="url" class="form-control" id="picture"
+                                    :placeholder="account.picture">
                             </div>
                         </div>
                         <div class="d-flex justify-content-end p-2">
@@ -56,9 +59,9 @@ export default {
     setup() {
         const editable = ref({})
         const account = computed(() => AppState.account)
-        watch(account, () => {
-            editable.value = { ...account.value }
-        })
+        // watch(account, () => {
+        //     editable.value = { ...account.value }
+        // })
         return {
             editable,
             account,

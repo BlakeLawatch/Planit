@@ -6,6 +6,19 @@
         </div>
         <div class="offcanvas-body">
             <section class="row justify-content-center">
+                <p>Status</p>
+                <div class="col-10">
+                    <button @click="toggleComplete(activeTask.id)" class="btn btn-outline-info px-4">
+                        Done
+                    </button>
+                </div>
+                <!-- <div v-else class="col-10">
+                    <button @click="toggleComplete(activeTask.id)" class="btn background-color px-4">
+                        Mark as Done
+                    </button>
+                </div> -->
+            </section>
+            <section class="row justify-content-center">
                 <div class=" col-8 border-notes text-center">
                     <h2 class="main-color">Notes</h2>
                 </div>
@@ -51,6 +64,7 @@ import Pop from '../utils/Pop';
 import { noteService } from '../services/NoteService'
 import { AppState } from '../AppState';
 import { useRoute } from 'vue-router';
+import { tasksService } from '../services/TasksService';
 
 
 
@@ -76,6 +90,8 @@ export default {
             editable,
             route,
             notes: computed(() => AppState.notes),
+            activeTask: computed(() => AppState.activeTask),
+            isEditingTask: computed(() => AppState.isEditingTask),
             account: computed(() => AppState.account),
 
             async createNote() {
@@ -102,7 +118,17 @@ export default {
                 } catch (error) {
                     Pop.error(error)
                 }
-            }
+            },
+
+            async toggleComplete(taskData) {
+                try {
+
+                    await tasksService.toggleComplete(taskData);
+                }
+                catch (error) {
+                    Pop.error(error);
+                }
+            },
         }
     }
 };

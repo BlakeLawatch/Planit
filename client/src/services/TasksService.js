@@ -30,6 +30,12 @@ class TasksService{
     setActiveTask(task){
         AppState.activeTask = task
     }
+
+    async toggleComplete(taskData) {
+        const res = await api.put(`api/tasks/${taskData}`)
+        logger.log('UPDATED TASK', res.data)
+       
+    }
 }
 
 export const tasksService = new TasksService()
