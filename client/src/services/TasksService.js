@@ -36,6 +36,11 @@ class TasksService{
         logger.log('UPDATED TASK', res.data)
        
     }
+
+    async changeSprint(taskId, taskData){
+        const res = await api.put(`api/tasks/${taskId}`, taskData)
+        logger.log('updated task FINISH IN THE SERVICE', res.data)
+    }
 }
 
 export const tasksService = new TasksService()

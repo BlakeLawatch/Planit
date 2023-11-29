@@ -2,21 +2,22 @@
     <div class="offcanvas offcanvas-end" tabindex="-1" id="taskDetails" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
         </div>
         <div class="offcanvas-body">
             <section class="row justify-content-center">
                 <p>Status</p>
-                <div class="col-10">
+                <!-- <div class="col-10">
                     <button @click="toggleComplete(activeTask.id)" class="btn btn-outline-info px-4">
                         Done
                     </button>
-                </div>
+                </div> -->
                 <!-- <div v-else class="col-10">
                     <button @click="toggleComplete(activeTask.id)" class="btn background-color px-4">
                         Mark as Done
                     </button>
                 </div> -->
+
             </section>
             <section class="row justify-content-center">
                 <div class=" col-8 border-notes text-center">
@@ -53,6 +54,16 @@
                     </div>
                 </div>
             </section>
+            <section class="row justify-content-center">
+                <div class="col-12">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input v-model="editable.name" type="text" class="form-control" id="name" placeholder="Name...">
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
     </div>
 </template>
@@ -64,7 +75,7 @@ import Pop from '../utils/Pop';
 import { noteService } from '../services/NoteService'
 import { AppState } from '../AppState';
 import { useRoute } from 'vue-router';
-import { tasksService } from '../services/TasksService';
+
 
 
 
@@ -91,7 +102,7 @@ export default {
             route,
             notes: computed(() => AppState.notes),
             activeTask: computed(() => AppState.activeTask),
-            isEditingTask: computed(() => AppState.isEditingTask),
+            activeSprint: computed(() => AppState.activeSprint),
             account: computed(() => AppState.account),
 
             async createNote() {
@@ -118,17 +129,7 @@ export default {
                 } catch (error) {
                     Pop.error(error)
                 }
-            },
-
-            async toggleComplete(taskData) {
-                try {
-
-                    await tasksService.toggleComplete(taskData);
-                }
-                catch (error) {
-                    Pop.error(error);
-                }
-            },
+            }
         }
     }
 };

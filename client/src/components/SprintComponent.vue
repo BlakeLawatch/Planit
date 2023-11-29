@@ -48,7 +48,7 @@ export default {
         const route = useRoute()
         return {
             route,
-            tasks: computed(() => AppState.tasks),
+            tasks: computed(() => AppState.tasks.filter()),
             account: computed(() => AppState.account),
             taskWeight: computed(() => {
                 let total = 0

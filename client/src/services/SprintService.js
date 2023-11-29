@@ -29,6 +29,8 @@ class SprintService{
         logger.log('deleted sprint FINISH IN THE SERVICE', AppState.sprints)
     }
 
+  
+
     setActiveSprint(sprint){
         AppState.activeSprint = sprint
     }

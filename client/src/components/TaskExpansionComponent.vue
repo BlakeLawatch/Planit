@@ -27,7 +27,21 @@
                 </div>
             </div>
         </div>
+        <div class="col-7 d-flex justify-content-end">
+            <form @submit.prevent="changeSprint()">
+                <div class="mb-3 text-end w-75">
+                    <label for="sprint" class="form-label ps-2"></label>
+                    <select v-model="editable.sprintId" name="" class="form-select" id="sprint">
+                        <option v-for="sprint in sprints" :key="sprint.id" :value="sprint.id">
+                            {{ sprint.name }}</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-outline-success">Move Sprint</button>
+            </form>
 
+        </div>
+        <div>
+        </div>
     </div>
 </template>
 
@@ -36,18 +50,26 @@
 import { tasksService } from '../services/TasksService'
 import { Task } from '../models/Task';
 import Pop from '../utils/Pop';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { AppState } from '../AppState';
 import TaskDetailsOffcanvas from './TaskDetailsOffcanvas.vue';
+
 
 
 
 export default {
     props: { task: { type: Task, required: true } },
     setup(props) {
+
+        const editable = ref({})
         return {
+            activeSprint: computed(() => AppState.activeSprint),
             sprints: computed(() => AppState.sprints),
+
             notes: computed(() => AppState.notes),
+            editable,
+
+
             async destroyTask() {
                 try {
                     const wantToDelete = await Pop.confirm('You sure about that?');
@@ -62,6 +84,17 @@ export default {
             },
             setActiveTask() {
                 tasksService.setActiveTask(props.task);
+            },
+
+            async changeSprint() {
+                try {
+                    const taskData = editable.value
+                    await tasksService.changeSprint(props.task.id, taskData)
+                    editable.value = {}
+
+                } catch (error) {
+                    Pop.error(error)
+                }
             }
         };
     },

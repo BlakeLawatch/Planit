@@ -23,7 +23,6 @@ export const AppState = reactive({
   
   /** @type {import('./models/Task.js').Task | null} */
   activeTask: null,
-  isEditingTask: false,
   
   /** @type {import('./models/Note.js').Note[]} */
   notes: []

@@ -13,8 +13,8 @@
             <H6>STARTED</H6>
         </div>
         <div v-for="project in projects" :key="project.id" class="d-flex justify-content-around">
-            <h6>{{ projectProp.name }}</h6>
-            <H6>{{ projectProp.createdAt.toLocaleDateString() }}</H6>
+            <h6>{{ project.name }}</h6>
+            <H6>{{ project.createdAt.toLocaleDateString() }}</H6>
         </div>
     </div>
 </template>
@@ -28,12 +28,12 @@ import { Project } from '../models/Project';
 
 
 export default {
-    props: { projectProp: { type: Project, required: true } },
     setup() {
 
 
         return {
-            account: computed(() => AppState.account)
+            account: computed(() => AppState.account),
+            projects: computed(() => AppState.projects)
         }
     }
 };
