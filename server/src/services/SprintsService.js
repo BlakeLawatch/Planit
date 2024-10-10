@@ -10,7 +10,6 @@ class SprintsService {
         const newSprint = (await dbContext.Sprints.create(sprintData)).populate('creator')
         return newSprint
     }
-
     async destroySprint(sprintId) {
         const destroyedSprint = await dbContext.Sprints.findByIdAndDelete(sprintId)
         return destroyedSprint
